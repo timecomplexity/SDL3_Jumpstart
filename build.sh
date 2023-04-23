@@ -29,7 +29,7 @@ mkdir -p build && cd build
 
 BUILD_CONFIGURATION="Debug"
 
-while getopts ":hrs:" option; do
+while getopts "hrs" option; do
    case $option in
       h) # display Help
          Usage
@@ -44,5 +44,5 @@ while getopts ":hrs:" option; do
    esac
 done
 
-cmake ../ -G "$GENERATOR" -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DCMAKE_PREFIX_PATH=$SDL_INSTALL_PATH $SHADER_CONFIG
+cmake ../ -G "$GENERATOR" -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DCMAKE_PREFIX_PATH=$SDL_INSTALL_PATH ${SHADER_CONFIG}
 cmake --build . --config $BUILD_CONFIGURATION
