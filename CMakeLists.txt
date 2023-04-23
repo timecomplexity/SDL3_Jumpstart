@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.26.0)
 
 # Set Project Names
 set(VULKAN_PLAYGROUND_PROJECT "Playground")
@@ -11,11 +11,23 @@ set(LV_BUILD_DIR "${LV_ROOT}/build")
 set(LV_SRC_DIR "${LV_ROOT}/source")
 set(LV_INC_DIR "${LV_ROOT}/include")
 set(LV_VENDOR_DIR "${LV_INC_DIR}/vendor")
+set(LV_SHADER_DIR "${LV_ROOT}/shaders")
+
+# Project directories
 set(LV_CORE_DIR "${LV_SRC_DIR}/Core")
+set(LV_LOGGER_DIR "${LV_CORE_DIR}/Logger")
+set(LV_TIME_DIR "${LV_CORE_DIR}/Time")
+set(LV_UTILS_DIR "${LV_CORE_DIR}/Utilities")
+set(LV_RENDER_DIR "${LV_SRC_DIR}/Render")
 set(LV_SDLSYSTEM_DIR "${LV_SRC_DIR}/SDLSystem")
+set(LV_APPLICATION_DIR "${LV_SRC_DIR}/Application")
 
 # Important Include directories
 set(LV_LOGGER_INC "${LV_CORE_DIR}/Logger")
+set(LV_TIME_INC "${LV_CORE_DIR}/Time")
+set(LV_UTILS_INC "${LV_CORE_DIR}/Utilities")
+set(LV_RENDER_INC "${LV_RENDER_DIR}")
+set(LV_APPLICATION_INC "${LV_APPLICATION_DIR}")
 
 # Set CMake output locations to keep things clean
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${LV_BUILD_DIR}/lib")
@@ -23,6 +35,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${LV_BUILD_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${LV_BUILD_DIR}/bin")
 
 set(CMAKE_CXX_STANDARD 17)
+
+# We do this so we don't get a warning about not using these variables
+set(IGNORE_VARS "${COMPILE_SHADERS}${CMAKE_BUILD_TYPE}")
 
 if(MSVC)
     # Enable configuring VS Solution folder structure.
@@ -81,17 +96,17 @@ find_package(SDL2 REQUIRED)
 # https://stackoverflow.com/questions/72328810/how-to-check-for-current-cmake-build-type-in-c
 add_compile_definitions("LV_DEBUG=$<CONFIG:Debug>")
 
-#add_subdirectory(Sandbox)
-
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${VULKAN_PLAYGROUND_PROJECT})
 
 include_directories(
     include
     ${LV_VENDOR_DIR}
     ${LV_SDLSYSTEM_DIR}
+    ${LV_RENDER_DIR}
 )
 
 add_subdirectory(source)
+add_subdirectory(shaders)
 
 set(HEADERS "")
 
@@ -100,18 +115,15 @@ set(SOURCES
 )
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
-#target_compile_definitions(${PROJECT_NAME} PRIVATE LV_APPLICATION_EXPORT)
+
 target_include_directories(${PROJECT_NAME} PRIVATE 
-    ${SDL2_INCLUDE_DIRS}
     ${LV_LOGGER_INC}
+    ${LV_APPLICATION_INC}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    Vulkan::Vulkan
-    SDL2::SDL2
-    SDL2::SDL2main
     Logger
-    SDLSystem
+    Application
 )
 
 if (WIN32)

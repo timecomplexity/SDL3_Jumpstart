@@ -1,33 +1,24 @@
 #pragma once
 
 #define SDL_MAIN_HANDLED
-#include <SDL.h>
 #include <stdio.h>
 
 #include <Logger.h>
-#include <SDLWindow.h>
+#include <LVApplication.h>
 
 int main (int argc, char* args[])
 {
-    //The window we'll be rendering to
-    LV::SDLSystem::SDLWindow mainWindow{ "Playground" };
+    LV::Application::LVApplication app{"Playground"};
 
-    //Hack to get window to stay up
-    SDL_Event e;
-    bool quit = false;
-    while( quit == false )
+    try
     {
-        while( SDL_PollEvent( &e ) )
-        { 
-            if( e.type == SDL_QUIT ) 
-                quit = true; 
-        } 
+        app.Run();
+    } 
+    catch (const std::exception& e)
+    {
+        LV_LOG_ERROR << e.what();
+        return EXIT_FAILURE;
     }
-
-    mainWindow.DestroySelf();
-
-    //Quit SDL subsystems
-    SDL_Quit();
 
     return 0;
 }

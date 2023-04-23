@@ -37,9 +37,11 @@ No need to install GLFW or GLM as we are using SDL2 and GLM is included as a sub
 
 For the final step, there is also a provided `build.sh` script which only needs the named variables updated at the top of the script to match your generator and custom SDL2 install path.
 
+In order to build shaders, when invoking CMake you will need to supply the argument `-DCOMPILE_SHADERS=1`.
+
 ```
-git clone --recurse-submodules https://github.com/timecomplexity/Learning-Vulkan.git
-cd Learning-Vulkan
+git clone --recurse-submodules https://github.com/timecomplexity/SDL2_Jumpstart.git
+cd SDL2_Jumpstart
 
 # Setup a shadow build
 mkdir build && cd build
