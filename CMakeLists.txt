@@ -126,12 +126,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     Application
 )
 
-if (WIN32)
+#if (WIN32)
 # copy the .dll file to the same folder as the executable
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    $<TARGET_FILE:SDL2::SDL2>
-    $<TARGET_FILE_DIR:${PROJECT_NAME}>
-    VERBATIM)
-endif()
+#add_custom_command(
+#    TARGET ${PROJECT_NAME} POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#    $<TARGET_FILE:SDL2::SDL2>
+#    $<TARGET_FILE_DIR:${PROJECT_NAME}>
+#    VERBATIM)
+#endif()

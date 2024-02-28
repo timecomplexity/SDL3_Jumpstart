@@ -12,7 +12,7 @@ set(SOURCES
 
 add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
 target_link_libraries(${PROJECT_NAME}
-    SDL2::SDL2
+    SDL2::SDL2-static
     SDL2::SDL2main
     Vulkan::Vulkan
     Logger
