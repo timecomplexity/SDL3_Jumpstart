@@ -11,8 +11,8 @@
 void LV::Application::LVApplication::Run()
 {
     // Test if we can read spv files
-    LV::Render::RenderPipeline{ "E:/Learning-Vulkan/shaders/simple_shader.vert.spv",
-        "E:/Learning-Vulkan/shaders/simple_shader.frag.spv" };
+    LV::Render::RenderPipeline{ "../../../shaders/simple_shader.vert.spv",
+        "../../../shaders/simple_shader.frag.spv" };
 
     uint32_t extensionCount = 0;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
