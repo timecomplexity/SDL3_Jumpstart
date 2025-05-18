@@ -3,7 +3,7 @@
 ############################################################
 # Build variables -- change these to suit your build env   #
 ############################################################
-SDL_INSTALL_PATH="E:/SDL/install"
+SDL_INSTALL_PATH="E:/SDL3/install"
 GENERATOR="Visual Studio 17 2022"
 
 ############################################################
@@ -12,7 +12,7 @@ GENERATOR="Visual Studio 17 2022"
 Usage()
 {
    # Display Help
-   echo "Build this vulkan project."
+   echo "Build this SDL project."
    echo
    echo "Syntax: build.sh [-h|r|s]"
    echo "options:"

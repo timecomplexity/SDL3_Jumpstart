@@ -15,7 +15,7 @@ std::vector<char> LV::Render::RenderPipeline::ReadFile(const std::string& filepa
 
 	if (!file.is_open())
 	{
-		LV_LOG_ERROR << "[RenderPipeline::ReadFile] Failed to open file: " << filepath;
+		SDLPG_LOG_ERROR << "[RenderPipeline::ReadFile] Failed to open file: " << filepath;
 		{
 			return {};
 		}
@@ -37,6 +37,6 @@ void LV::Render::RenderPipeline::CreateGraphicsPipeline(const std::string& vertF
 	auto vertCode = ReadFile(vertFilepath);
 	auto fragCode = ReadFile(fragFilepath);
 
-	LV_LOG_INFO << "Vertex shader code size: " << vertCode.size();
-	LV_LOG_INFO << "Fragment shader code size: " << fragCode.size();
+	SDLPG_LOG_INFO << "Vertex shader code size: " << vertCode.size();
+	SDLPG_LOG_INFO << "Fragment shader code size: " << fragCode.size();
 }

@@ -17,7 +17,7 @@ void LV::Application::LVApplication::Run()
     uint32_t extensionCount = 0;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
 
-    LV_LOG_INFO << "Number of extensions supported: " << extensionCount;
+    SDLPG_LOG_INFO << "Number of extensions supported: " << extensionCount;
 
     //Hack to get window to stay up
     SDL_Event e;

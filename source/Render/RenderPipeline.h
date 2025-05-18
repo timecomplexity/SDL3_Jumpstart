@@ -7,7 +7,7 @@
 
 namespace LV::Render
 {
-	class LV_RENDER_API RenderPipeline
+	class SDLPG_RENDER_API RenderPipeline
 	{
 	public:
 		RenderPipeline(const std::string& vertFilePath, const std::string& fragFilepath);

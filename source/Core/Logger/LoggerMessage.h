@@ -8,7 +8,7 @@
 
 namespace LV::Core::Logger
 {
-  class LV_LOGGER_API LoggerMessage
+  class SDLPG_LOGGER_API LoggerMessage
   {
   public:
     LoggerMessage() = delete;

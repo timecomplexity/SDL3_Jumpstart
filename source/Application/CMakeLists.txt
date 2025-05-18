@@ -3,28 +3,28 @@ project(Application)
 
 set(HEADERS
     Export.h
-    LVApplication.h
+    SDLPGApplication.h
 )
 
 set(SOURCES
-    LVApplication.cpp
+    SDLPGApplication.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
 target_link_libraries(${PROJECT_NAME}
-    SDL2::SDL2
-    SDL2::SDL2main
+    SDL3::SDL3
+    SDL3::SDL3main
     Vulkan::Vulkan
     Logger
     SDLSystem
     Render
 )
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE LV_APPLICATION_EXPORT)
+target_compile_definitions(${PROJECT_NAME} PRIVATE SDLPG_APPLICATION_EXPORT)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-    ${LV_LOGGER_INC}
-    ${LV_SDLSYSTEM_INC}
-    ${SDL2_INCLUDE_DIRS}
-    ${LV_RENDER_INC}
+    ${SDLPG_LOGGER_INC}
+    ${SDLPG_SDLSYSTEM_INC}
+    ${SDL3_INCLUDE_DIRS}
+    ${SDLPG_RENDER_INC}
 )

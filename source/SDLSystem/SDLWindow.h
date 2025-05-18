@@ -13,7 +13,7 @@ namespace LV
 {
   namespace SDLSystem
   {
-    class LV_SDLSYSTEM_API SDLWindow
+    class SDLPG_SDLSYSTEM_API SDLWindow
     {
     public:
       SDLWindow(const std::string& windowName = "Playground");

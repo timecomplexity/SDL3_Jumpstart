@@ -16,7 +16,7 @@ int main (int argc, char* args[])
     } 
     catch (const std::exception& e)
     {
-        LV_LOG_ERROR << e.what();
+        SDLPG_LOG_ERROR << e.what();
         return EXIT_FAILURE;
     }
 

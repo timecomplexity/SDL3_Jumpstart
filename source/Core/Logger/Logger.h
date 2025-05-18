@@ -9,7 +9,7 @@
 
 namespace LV::Core::Logger
 {
-  class LV_LOGGER_API Logger
+  class SDLPG_LOGGER_API Logger
   {
   public:
     static Logger& Instance();
@@ -31,8 +31,8 @@ namespace LV::Core::Logger
   };
 } // namespace LV::Core::Logger
 
-#define LV_LOG_INFO LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Info)._stream
-#define LV_LOG_DEBUG LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Debug)._stream
-#define LV_LOG_WARN LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Warn)._stream
-#define LV_LOG_ERROR LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Error)._stream
-#define LV_LOG_CRITICAL LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Critical)._stream
+#define SDLPG_LOG_INFO LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Info)._stream
+#define SDLPG_LOG_DEBUG LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Debug)._stream
+#define SDLPG_LOG_WARN LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Warn)._stream
+#define SDLPG_LOG_ERROR LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Error)._stream
+#define SDLPG_LOG_CRITICAL LV::Core::Logger::LoggerMessage(LV::Core::Logger::Level::Critical)._stream

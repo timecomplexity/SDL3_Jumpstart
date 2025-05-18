@@ -12,7 +12,7 @@ LV::Core::Logger::Logger& LV::Core::Logger::Logger::Instance()
 {
   static LV::Core::Logger::Logger logger;
 
-#if (LV_DEBUG)
+#if (SDLPG_DEBUG)
   logger.SetLevel(LV::Core::Logger::Level::Debug);
 #endif
 

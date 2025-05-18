@@ -9,7 +9,7 @@
 
 namespace LV::Application
 {
-	class LV_APPLICATION_API LVApplication
+	class SDLPG_APPLICATION_API LVApplication
 	{
 	public:
 		LVApplication(const std::string& windowTitle = "Playground") : 
