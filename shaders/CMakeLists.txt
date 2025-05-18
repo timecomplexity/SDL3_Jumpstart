@@ -2,29 +2,29 @@ project(Shaders)
 
 if(DEFINED COMPILE_SHADERS)
     file(GLOB SHADERS
-        ${LV_SHADER_DIR}/*.vert
-        ${LV_SHADER_DIR}/*.frag
-        ${LV_SHADER_DIR}/*.comp
-        ${LV_SHADER_DIR}/*.geom
-        ${LV_SHADER_DIR}/*.tesc
-        ${LV_SHADER_DIR}/*.tese
-        ${LV_SHADER_DIR}/*.mesh
-        ${LV_SHADER_DIR}/*.task
-        ${LV_SHADER_DIR}/*.rgen
-        ${LV_SHADER_DIR}/*.rchit
-        ${LV_SHADER_DIR}/*.rmiss
+        ${SDLPG_SHADER_DIR}/*.vert
+        ${SDLPG_SHADER_DIR}/*.frag
+        ${SDLPG_SHADER_DIR}/*.comp
+        ${SDLPG_SHADER_DIR}/*.geom
+        ${SDLPG_SHADER_DIR}/*.tesc
+        ${SDLPG_SHADER_DIR}/*.tese
+        ${SDLPG_SHADER_DIR}/*.mesh
+        ${SDLPG_SHADER_DIR}/*.task
+        ${SDLPG_SHADER_DIR}/*.rgen
+        ${SDLPG_SHADER_DIR}/*.rchit
+        ${SDLPG_SHADER_DIR}/*.rmiss
     )
 
     message(STATUS "===== COMPILING SHADERS =====")
 
     foreach(SHADER IN LISTS SHADERS)
         get_filename_component(FILENAME ${SHADER} NAME)
-        add_custom_command(OUTPUT ${LV_SHADER_DIR}/${FILENAME}.spv
-            COMMAND ${Vulkan_GLSLC_EXECUTABLE} ${SHADER} -o ${LV_SHADER_DIR}/${FILENAME}.spv
+        add_custom_command(OUTPUT ${SDLPG_SHADER_DIR}/${FILENAME}.spv
+            COMMAND ${Vulkan_GLSLC_EXECUTABLE} ${SHADER} -o ${SDLPG_SHADER_DIR}/${FILENAME}.spv
             DEPENDS ${SHADER}
             COMMENT "Compiling ${FILENAME}")
         message("       >> ${FILENAME}.spv")
-        list(APPEND SPV_SHADERS ${LV_SHADER_DIR}/${FILENAME}.spv)
+        list(APPEND SPV_SHADERS ${SDLPG_SHADER_DIR}/${FILENAME}.spv)
     endForeach()
 
     add_custom_target(${PROJECT_NAME} ALL DEPENDS ${SPV_SHADERS})

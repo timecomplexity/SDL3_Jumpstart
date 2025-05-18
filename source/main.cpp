@@ -4,11 +4,11 @@
 #include <stdio.h>
 
 #include <Logger.h>
-#include <LVApplication.h>
+#include <SDLPGApplication.h>
 
 int main (int argc, char* args[])
 {
-    LV::Application::LVApplication app{"Playground"};
+    SDLPG::Application::SDLPGApplication app{"Playground"};
 
     try
     {
@@ -16,7 +16,7 @@ int main (int argc, char* args[])
     } 
     catch (const std::exception& e)
     {
-        LV_LOG_ERROR << e.what();
+        SDLPG_LOG_ERROR << e.what();
         return EXIT_FAILURE;
     }
 

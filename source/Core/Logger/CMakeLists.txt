@@ -15,6 +15,6 @@ set(SOURCES
 )
 
 add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
-target_compile_definitions(${PROJECT_NAME} PRIVATE LV_LOGGER_EXPORT)
+target_compile_definitions(${PROJECT_NAME} PRIVATE SDLPG_LOGGER_EXPORT)
 
 #target_link_libraries(${PROJECT_NAME} spdlog::spdlog)

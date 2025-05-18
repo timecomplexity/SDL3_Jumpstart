@@ -2,11 +2,11 @@
 
 #include "Logger.h"
 
-LV::Core::Logger::LoggerMessage::LoggerMessage(LV::Core::Logger::Level level) : _level(level)
+SDLPG::Core::Logger::LoggerMessage::LoggerMessage(SDLPG::Core::Logger::Level level) : _level(level)
 {
 }
 
-LV::Core::Logger::LoggerMessage::~LoggerMessage()
+SDLPG::Core::Logger::LoggerMessage::~LoggerMessage()
 {
-  LV::Core::Logger::Logger::Instance().Log(_stream.str(), _level);
+  SDLPG::Core::Logger::Logger::Instance().Log(_stream.str(), _level);
 }

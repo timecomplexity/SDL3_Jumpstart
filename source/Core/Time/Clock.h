@@ -1,18 +1,18 @@
 #pragma once
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <memory>
 #include <stdio.h>
 
 #include "Export.h"
 
-namespace LV
+namespace SDLPG
 {
   namespace Core
   {
     namespace Time
     {
-      class LV_CORETIME_API Clock
+      class SDLPG_CORETIME_API Clock
       {
       public:
         Clock();
@@ -30,7 +30,7 @@ namespace LV
         double _deltaTime = 0.0;
       };
 
-      class LV_CORETIME_API GameClock
+      class SDLPG_CORETIME_API GameClock
       {
       public:
         static double DeltaTime();
@@ -41,4 +41,4 @@ namespace LV
       };
     } // namespace Time
   }   // namespace Core
-} // namespace LV
+} // namespace SDLPG

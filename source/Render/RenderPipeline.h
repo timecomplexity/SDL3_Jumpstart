@@ -5,9 +5,9 @@
 
 #include "Export.h"
 
-namespace LV::Render
+namespace SDLPG::Render
 {
-	class LV_RENDER_API RenderPipeline
+	class SDLPG_RENDER_API RenderPipeline
 	{
 	public:
 		RenderPipeline(const std::string& vertFilePath, const std::string& fragFilepath);
@@ -17,4 +17,4 @@ namespace LV::Render
 
 		void CreateGraphicsPipeline(const std::string& verFilepath, const std::string& fragFilepath);
 	};
-} // namespace LV::Render
+} // namespace SDLPG::Render

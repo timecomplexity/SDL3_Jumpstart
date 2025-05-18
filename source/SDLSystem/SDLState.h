@@ -2,24 +2,24 @@
 
 #include <stdio.h>
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
-#define SDL_ATTRIBUTES_SET LV::SDLSystem::SDLState::_openGLAttributesSet
-#define SDL_SUBSYSTEM_INIT LV::SDLSystem::SDLState::_subsystemInit
-#define EVERYTHING_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_EVERYTHING)
-#define TIMER_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_TIMER)
+#include "Export.h"
+
+#define SDL_ATTRIBUTES_SET SDLPG::SDLSystem::SDLState::_openGLAttributesSet
+#define SDL_SUBSYSTEM_INIT SDLPG::SDLSystem::SDLState::_subsystemInit
 #define AUDIO_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_AUDIO)
 #define VIDEO_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_VIDEO)
 #define HAPTIC_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_HAPTIC)
-#define GAMECONTROLLER_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_GAMECONTROLLER)
+#define GAMECONTROLLER_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_GAMEPAD)
 #define EVENTS_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_EVENTS)
 #define JOYSTICK_CHECK (SDL_SUBSYSTEM_INIT & SDL_INIT_JOYSTICK)
 
-namespace LV
+namespace SDLPG
 {
   namespace SDLSystem
   {
-    class SDLState
+    class SDLPG_SDLSYSTEM_API SDLState
     {
     public:
       static void VerifyInit();
@@ -34,4 +34,4 @@ namespace LV
       static bool _initHasRun;
     };
   } // namespace SDLSystem
-} // namespace LV
+} // namespace SDLPG

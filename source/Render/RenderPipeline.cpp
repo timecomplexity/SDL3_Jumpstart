@@ -3,19 +3,19 @@
 #include <fstream>
 #include <Logger.h>
 
-LV::Render::RenderPipeline::RenderPipeline(const std::string& vertFilepath,
+SDLPG::Render::RenderPipeline::RenderPipeline(const std::string& vertFilepath,
 	const std::string& fragFilepath)
 {
 	CreateGraphicsPipeline(vertFilepath, fragFilepath);
 }
 
-std::vector<char> LV::Render::RenderPipeline::ReadFile(const std::string& filepath)
+std::vector<char> SDLPG::Render::RenderPipeline::ReadFile(const std::string& filepath)
 {
 	std::ifstream file{filepath, std::ios::ate | std::ios::binary};
 
 	if (!file.is_open())
 	{
-		LV_LOG_ERROR << "[RenderPipeline::ReadFile] Failed to open file: " << filepath;
+		SDLPG_LOG_ERROR << "[RenderPipeline::ReadFile] Failed to open file: " << filepath;
 		{
 			return {};
 		}
@@ -31,12 +31,12 @@ std::vector<char> LV::Render::RenderPipeline::ReadFile(const std::string& filepa
 	return buffer;
 }
 
-void LV::Render::RenderPipeline::CreateGraphicsPipeline(const std::string& vertFilepath,
+void SDLPG::Render::RenderPipeline::CreateGraphicsPipeline(const std::string& vertFilepath,
 	const std::string& fragFilepath)
 {
 	auto vertCode = ReadFile(vertFilepath);
 	auto fragCode = ReadFile(fragFilepath);
 
-	LV_LOG_INFO << "Vertex shader code size: " << vertCode.size();
-	LV_LOG_INFO << "Fragment shader code size: " << fragCode.size();
+	SDLPG_LOG_INFO << "Vertex shader code size: " << vertCode.size();
+	SDLPG_LOG_INFO << "Fragment shader code size: " << fragCode.size();
 }

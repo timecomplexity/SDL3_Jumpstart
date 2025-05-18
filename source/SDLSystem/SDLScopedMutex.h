@@ -2,7 +2,7 @@
 
 #include <SDL_mutex.h>
 
-namespace LV::SDLSystem
+namespace SDLPG::SDLSystem
 {
   class SDLScopedMutex
   {
@@ -21,4 +21,4 @@ namespace LV::SDLSystem
     SDLScopedMutex();
     SDL_mutex* _mutex;
   };
-} // namespace LV::SDLSystem
+} // namespace SDLPG::SDLSystem
