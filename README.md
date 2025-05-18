@@ -35,9 +35,9 @@ If using Vulkan, set up Vulkan using the installation process described [here](h
 
 ### OpenGL
 
+WIP
 
-
-No need to install GLFW or GLM as we are using SDL3 and GLM is included as a submodule. We are using SDL3 instead of GLFW.
+No need to install GLM which is included as a submodule.
 
 ## Building
 
