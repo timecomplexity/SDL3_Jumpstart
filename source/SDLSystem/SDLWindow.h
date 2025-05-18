@@ -5,11 +5,11 @@
 #include <string>
 #include <glm/glm/glm.hpp>
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "Export.h"
 
-namespace LV
+namespace SDLPG
 {
   namespace SDLSystem
   {
@@ -19,43 +19,20 @@ namespace LV
       SDLWindow(const std::string& windowName = "Playground");
       virtual ~SDLWindow();
 
-      std::string GetWindowTitle()
-      {
-        return _windowTitle;
-      }
-
-      bool IsWindowValid()
-      {
-        return _windowInitValid;
-      }
-
+      std::string GetWindowTitle() { return _windowTitle; }
+      bool IsWindowValid() { return _windowInitValid; }
       void DestroySelf();
-
       void GetDrawableSizeInfo(int& width, int& height);
-
       float GetAspectGL();
-
-      SDL_Window* GetSDLWindow()
-      {
-        return _mainWindow;
-      }
-
-      SDL_GLContext GetGLContext()
-      {
-        return _context;
-      }
+      void SetMinimizedState(bool newMinimized);
+      SDL_Window* GetSDLWindow() { return _mainWindow; }
+      SDL_GLContext GetGLContext() { return _context; }
 
       void SwapBuffers();
 
-      int GetHeight() const
-      {
-        return _windowHeight;
-      }
-
-      int GetWidth() const
-      {
-        return _windowWidth;
-      }
+      int GetHeight() const { return _windowHeight; }
+      int GetWidth() const { return _windowWidth; }
+      bool GetIsMinimized() const { return _isMinimized; }
 
     private:
       bool CreateTheWindow();
@@ -70,9 +47,11 @@ namespace LV
       int _windowWidth = -1;
 
       bool _windowInitValid = false;
+      bool _isMinimized = false;
+
 
       const uint32_t DEFAULT_SCREEN_WIDTH = 1024;
       const uint32_t DEFAULT_SCREEN_HEIGHT = 768;
     };
   } // namespace SDLSystem
-} // namespace LV
+} // namespace SDLPG

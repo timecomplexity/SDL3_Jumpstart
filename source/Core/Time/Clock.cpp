@@ -2,11 +2,11 @@
 
 
 // == CLOCK =============
-LV::Core::Time::Clock::Clock() : _now(SDL_GetPerformanceCounter())
+SDLPG::Core::Time::Clock::Clock() : _now(SDL_GetPerformanceCounter())
 {
 }
 
-void LV::Core::Time::Clock::UpdateClock()
+void SDLPG::Core::Time::Clock::UpdateClock()
 {
   _last = _now;
   _now = SDL_GetPerformanceCounter();
@@ -15,14 +15,14 @@ void LV::Core::Time::Clock::UpdateClock()
 }
 
 // == GAME CLOCK ==========
-std::unique_ptr<LV::Core::Time::Clock> LV::Core::Time::GameClock::_gameClock = std::make_unique<LV::Core::Time::Clock>();
+std::unique_ptr<SDLPG::Core::Time::Clock> SDLPG::Core::Time::GameClock::_gameClock = std::make_unique<SDLPG::Core::Time::Clock>();
 
-void LV::Core::Time::GameClock::Tick()
+void SDLPG::Core::Time::GameClock::Tick()
 {
   _gameClock->UpdateClock();
 }
 
-double LV::Core::Time::GameClock::DeltaTime()
+double SDLPG::Core::Time::GameClock::DeltaTime()
 {
   return _gameClock->GetDeltaTime();
 }

@@ -3,13 +3,13 @@
 #include <fstream>
 #include <Logger.h>
 
-LV::Render::RenderPipeline::RenderPipeline(const std::string& vertFilepath,
+SDLPG::Render::RenderPipeline::RenderPipeline(const std::string& vertFilepath,
 	const std::string& fragFilepath)
 {
 	CreateGraphicsPipeline(vertFilepath, fragFilepath);
 }
 
-std::vector<char> LV::Render::RenderPipeline::ReadFile(const std::string& filepath)
+std::vector<char> SDLPG::Render::RenderPipeline::ReadFile(const std::string& filepath)
 {
 	std::ifstream file{filepath, std::ios::ate | std::ios::binary};
 
@@ -31,7 +31,7 @@ std::vector<char> LV::Render::RenderPipeline::ReadFile(const std::string& filepa
 	return buffer;
 }
 
-void LV::Render::RenderPipeline::CreateGraphicsPipeline(const std::string& vertFilepath,
+void SDLPG::Render::RenderPipeline::CreateGraphicsPipeline(const std::string& vertFilepath,
 	const std::string& fragFilepath)
 {
 	auto vertCode = ReadFile(vertFilepath);

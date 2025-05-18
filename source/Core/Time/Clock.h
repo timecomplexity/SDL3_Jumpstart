@@ -1,12 +1,12 @@
 #pragma once
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <memory>
 #include <stdio.h>
 
 #include "Export.h"
 
-namespace LV
+namespace SDLPG
 {
   namespace Core
   {
@@ -41,4 +41,4 @@ namespace LV
       };
     } // namespace Time
   }   // namespace Core
-} // namespace LV
+} // namespace SDLPG

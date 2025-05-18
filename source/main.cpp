@@ -4,11 +4,11 @@
 #include <stdio.h>
 
 #include <Logger.h>
-#include <LVApplication.h>
+#include <SDLPGApplication.h>
 
 int main (int argc, char* args[])
 {
-    LV::Application::LVApplication app{"Playground"};
+    SDLPG::Application::SDLPGApplication app{"Playground"};
 
     try
     {

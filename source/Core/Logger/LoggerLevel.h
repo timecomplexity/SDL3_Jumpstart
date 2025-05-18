@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace LV::Core::Logger
+namespace SDLPG::Core::Logger
 {
   enum class Level
   {

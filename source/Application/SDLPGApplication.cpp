@@ -1,6 +1,6 @@
-#include "LVApplication.h"
+#include "SDLPGApplication.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <stdio.h>
 
 #include <Logger.h>
@@ -8,10 +8,10 @@
 #include <RenderPipeline.h>
 #include <vulkan/vulkan.h>
 
-void LV::Application::LVApplication::Run()
+void SDLPG::Application::SDLPGApplication::Run()
 {
     // Test if we can read spv files
-    LV::Render::RenderPipeline{ "../../../shaders/simple_shader.vert.spv",
+    SDLPG::Render::RenderPipeline{ "../../../shaders/simple_shader.vert.spv",
         "../../../shaders/simple_shader.frag.spv" };
 
     uint32_t extensionCount = 0;
@@ -26,7 +26,7 @@ void LV::Application::LVApplication::Run()
     {
         while (SDL_PollEvent(&e))
         {
-            if (e.type == SDL_QUIT)
+            if (e.type == SDL_EVENT_QUIT)
                 quit = true;
         }
     }
