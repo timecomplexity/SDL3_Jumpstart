@@ -12,6 +12,7 @@ set(SDLPG_SRC_DIR       "${SDLPG_ROOT}/source")
 set(SDLPG_INC_DIR       "${SDLPG_ROOT}/include")
 set(SDLPG_VENDOR_DIR    "${SDLPG_INC_DIR}/vendor")
 set(SDLPG_SHADER_DIR    "${SDLPG_ROOT}/shaders")
+set(SDLPG_CMAKE_DIR     "${SDLPG_ROOT}/cmake")
 
 # Project directories
 set(SDLPG_CORE_DIR          "${SDLPG_SRC_DIR}/Core")
@@ -43,6 +44,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/bin")
 
 set(CMAKE_CXX_STANDARD 17)
+
+# Make sure we look at cmake directory
+set(CMAKE_MODULE_PATH "${SDLPG_CMAKE_DIR}" ${CMAKE_MODULE_PATH})
 
 # We do this so we don't get a warning about not using these variables
 set(IGNORE_VARS "${COMPILE_SHADERS}${CMAKE_BUILD_TYPE}")
@@ -98,8 +102,6 @@ set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 set(GLEW_USE_STATIC_LIBS True)
 set(GLEW_VERBOSE True)
-set(GLEW_INCLUDE_DIR ${GLEW_INC})
-set(GLEW_LIBRARIES ${GLEW_DIR}/build/lib)
 find_package(GLEW REQUIRED)
 
 #set(SDLPG_BUILD_TESTS ON CACHE BOOL "Whether tests should be built")
