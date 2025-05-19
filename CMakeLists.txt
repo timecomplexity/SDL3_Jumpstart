@@ -43,7 +43,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/bin")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 # Make sure we look at cmake directory
 set(CMAKE_MODULE_PATH "${SDLPG_CMAKE_DIR}" ${CMAKE_MODULE_PATH})
@@ -128,6 +128,9 @@ find_package(SDL3 REQUIRED)
 # Automatically define a custom macro if we're in debug.
 # https://stackoverflow.com/questions/72328810/how-to-check-for-current-cmake-build-type-in-c
 add_compile_definitions("SDLPG_DEBUG=$<CONFIG:Debug>")
+
+# Get rid of warning C4996 which makes output unusable
+add_compile_definitions("_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING")
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${SDL_PLAYGROUND_PROJECT})
 
