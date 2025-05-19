@@ -54,7 +54,17 @@ No need to install GLM which is included as a submodule.
 
 For the final step, there is also a provided `build.sh` script which only needs the named variables updated at the top of the script to match your generator and custom SDL3 install path.
 
-In order to build shaders, when invoking CMake you will need to supply the argument `-DCOMPILE_SHADERS=1`.
+By default OpenGL will be built, but Vulkan can be specified. This can be done using either of the following options when invoking CMake.
+
+```
+# Build for Vulkan
+-DGRAPHICS_API=VULKAN
+
+# Build for OpenGL
+-DGRAPHICS_API=OPENGL
+```
+
+In order to build shaders for Vulkan, when invoking CMake you will need to supply the argument `-DCOMPILE_SHADERS=1`.
 
 ```
 git clone --recurse-submodules https://github.com/timecomplexity/SDL3_Jumpstart.git
@@ -64,7 +74,7 @@ cd SDL3_Jumpstart
 mkdir build && cd build
 
 # Run CMake, replacing with appropriate values for your setup
-cmake ../ -G <DesiredGenerator> -DCMAKE_BUILD_TYPE=<DesiredBuildConfiguration> -DCMAKE_PREFIX_PATH=<CustomSDLInstallLocation>
+cmake ../ -G <DesiredGenerator> -DGRAPHICS_API=<DesiredGraphicsAPI> -DCMAKE_BUILD_TYPE=<DesiredBuildConfiguration> -DCMAKE_PREFIX_PATH=<CustomSDLInstallLocation>
 cmake --build . --config <DesiredBuildConfiguration>
 
 # Example for Visual Studio 2022 and a custom install location for SDL3 in Release mode

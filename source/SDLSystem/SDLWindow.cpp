@@ -44,23 +44,14 @@ bool SDLPG::SDLSystem::SDLWindow::CreateTheWindow()
   }
 
   SDL_WindowFlags rendererFlag;
-  // TODO: Make this use config instead
+#if SDLPG_VULKAN
   rendererFlag = SDL_WINDOW_VULKAN;
-  /*
-  auto renderType = SDLPG::Config::SystemConfig::GetInstance().GetCurrentRenderContextType();
-  if (renderType == SDLPG::Render::RenderContextType::Vulkan)
-  {
-      rendererFlag = SDL_WINDOW_VULKAN;
-  }
-  else if (renderType == SDLPG::Render::RenderContextType::OpenGL)
-  {
-      rendererFlag = SDL_WINDOW_OPENGL;
-  }
-  else
-  {
-      rendererFlag = SDL_WINDOW_OPENGL;
-  }
-  */
+#elif SDLPG_OPENGL
+  rendererFlag = SDL_WINDOW_OPENGL;
+#else
+  // Default to OpenGL to be safe
+  rendererFlag = SDL_WINDOW_OPENGL;
+#endif
 
   // TODO: Make this able to be configured as Vulkan or OpenGL
   _mainWindow = SDL_CreateWindow(_windowTitle.c_str(), _windowWidth, _windowHeight,
