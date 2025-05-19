@@ -12,6 +12,7 @@ set(SDLPG_SRC_DIR       "${SDLPG_ROOT}/source")
 set(SDLPG_INC_DIR       "${SDLPG_ROOT}/include")
 set(SDLPG_VENDOR_DIR    "${SDLPG_INC_DIR}/vendor")
 set(SDLPG_SHADER_DIR    "${SDLPG_ROOT}/shaders")
+set(SDLPG_CMAKE_DIR     "${SDLPG_ROOT}/cmake")
 
 # Project directories
 set(SDLPG_CORE_DIR          "${SDLPG_SRC_DIR}/Core")
@@ -29,12 +30,23 @@ set(SDLPG_UTILS_INC         "${SDLPG_CORE_DIR}/Utilities")
 set(SDLPG_RENDER_INC        "${SDLPG_RENDER_DIR}")
 set(SDLPG_APPLICATION_INC   "${SDLPG_APPLICATION_DIR}")
 
+# Vendor directories and includes
+set(GLEW_DIR    "${SDLPG_VENDOR_DIR}/glew")
+set(GLEW_INC    "${GLEW_DIR}/include")
+set(GLM_DIR     "${SDLPG_VENDOR_DIR}/glm")
+set(GLM_INC     "${GLM_DIR}")
+set(SPDLOG_DIR  "${SDLPG_VENDOR_DIR}/glm")
+set(SPDLOG_INC  "${SPDLOG_DIR}")
+
 # Set CMake output locations to keep things clean
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/bin")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+
+# Make sure we look at cmake directory
+set(CMAKE_MODULE_PATH "${SDLPG_CMAKE_DIR}" ${CMAKE_MODULE_PATH})
 
 # We do this so we don't get a warning about not using these variables
 set(IGNORE_VARS "${COMPILE_SHADERS}${CMAKE_BUILD_TYPE}")
@@ -45,45 +57,68 @@ if(MSVC)
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif(MSVC)
 
-# AUTO_LOCATE_VULKAN - accepted value ON or OFF
-# ON  - Use CMake to auto locate the Vulkan SDK.
-# OFF - Vulkan SDK path can be specified manually. This is helpful to test the build on various Vulkan version.
-# https://github.com/PacktPublishing/Learning-Vulkan/blob/master/Chapter%2003/HandShake/CMakeLists.txt
-message(STATUS "Attempting auto locate Vulkan using CMake......")
-
-# Find Vulkan Path using CMake's Vulkan Module
-# This will return Boolean 'Vulkan_FOUND' indicating the status of find as success(ON) or fail(OFF).
-# Include directory path - 'Vulkan_INCLUDE_DIRS' and 'Vulkan_LIBRARY' with required libraries.
-find_package(Vulkan QUIET)
-        
-if(NOT Vulkan_FOUND)
-    # CMake may fail to locate the libraries but could be able to 
-    # provide some path in Vulkan SDK include directory variable
-    # 'Vulkan_INCLUDE_DIRS', try to extract path from this.
-    message(STATUS "Failed to locate Vulkan SDK, retrying again...")
-    if(EXISTS "${VULKAN_PATH}")
-        message(STATUS "Successfully located the Vulkan SDK: ${VULKAN_PATH}")
-    else()
-        message("Error: Unable to locate Vulkan SDK. Trying to locate with environment variables.")
-
-        set(VULKAN_PATH "$ENV{VK_SDK_PATH}")
-        message("Using environment variable specified path: ${VK_SDK_PATH}")
-
-        set(Vulkan_INCLUDE_DIRS "${VK_SDK_PATH}/Include")
-        set(Vulkan_LIBRARIES "${VK_SDK_PATH}/Lib")
-
-        find_package(Vulkan)
-    endif()
+# If not defined, use OpenGL by default
+if(NOT DEFINED GRAPHICS_API)
+    set(GRAPHICS_API "OPENGL")
 endif()
 
+if("${GRAPHICS_API}" STREQUAL "VULKAN")
 
-# Check if manual set path exists
-if(NOT Vulkan_FOUND)
-    message("Error: Unable to locate this Vulkan SDK path VK_SDK_PATH: $ENV{VK_SDK_PATH}, please specify correct path.")
-    return()
+    # AUTO_LOCATE_VULKAN - accepted value ON or OFF
+    # ON  - Use CMake to auto locate the Vulkan SDK.
+    # OFF - Vulkan SDK path can be specified manually. This is helpful to test the build on various Vulkan version.
+    # https://github.com/PacktPublishing/Learning-Vulkan/blob/master/Chapter%2003/HandShake/CMakeLists.txt
+    message(STATUS "Attempting auto locate Vulkan using CMake......")
+
+    # Find Vulkan Path using CMake's Vulkan Module
+    # This will return Boolean 'Vulkan_FOUND' indicating the status of find as success(ON) or fail(OFF).
+    # Include directory path - 'Vulkan_INCLUDE_DIRS' and 'Vulkan_LIBRARY' with required libraries.
+    find_package(Vulkan QUIET)
+        
+    if(NOT Vulkan_FOUND)
+        # CMake may fail to locate the libraries but could be able to 
+        # provide some path in Vulkan SDK include directory variable
+        # 'Vulkan_INCLUDE_DIRS', try to extract path from this.
+        message(STATUS "Failed to locate Vulkan SDK, retrying again...")
+        if(EXISTS "${VULKAN_PATH}")
+            message(STATUS "Successfully located the Vulkan SDK: ${VULKAN_PATH}")
+        else()
+            message("Error: Unable to locate Vulkan SDK. Trying to locate with environment variables.")
+
+            set(VULKAN_PATH "$ENV{VK_SDK_PATH}")
+            message("Using environment variable specified path: ${VK_SDK_PATH}")
+
+            set(Vulkan_INCLUDE_DIRS "${VK_SDK_PATH}/Include")
+            set(Vulkan_LIBRARIES "${VK_SDK_PATH}/Lib")
+
+            find_package(Vulkan)
+        endif()
+    endif()
+
+
+    # Check if manual set path exists
+    if(NOT Vulkan_FOUND)
+        message("Error: Unable to locate this Vulkan SDK path VK_SDK_PATH: $ENV{VK_SDK_PATH}, please specify correct path.")
+        return()
+    endif()
+
+    add_compile_definitions("SDLPG_VULKAN=1")
+
+elseif("${GRAPHICS_API}" STREQUAL "OPENGL")
+
+    # Prefer GLVND to get rid of warnings
+    set(OpenGL_GL_PREFERENCE GLVND)
+    find_package(OpenGL REQUIRED)
+    set(GLEW_USE_STATIC_LIBS True)
+    set(GLEW_VERBOSE True)
+    find_package(GLEW REQUIRED)
+    add_compile_definitions("SDLPG_OPENGL=1")
+
 endif()
 
 find_package(SDL3 REQUIRED)
+
+
 
 #set(SDLPG_BUILD_TESTS ON CACHE BOOL "Whether tests should be built")
 #if(SDLPG_BUILD_TESTS)
@@ -93,6 +128,9 @@ find_package(SDL3 REQUIRED)
 # Automatically define a custom macro if we're in debug.
 # https://stackoverflow.com/questions/72328810/how-to-check-for-current-cmake-build-type-in-c
 add_compile_definitions("SDLPG_DEBUG=$<CONFIG:Debug>")
+
+# Get rid of warning C4996 which makes output unusable
+add_compile_definitions("_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING")
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${SDL_PLAYGROUND_PROJECT})
 
