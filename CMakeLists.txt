@@ -98,6 +98,8 @@ set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 set(GLEW_USE_STATIC_LIBS True)
 set(GLEW_VERBOSE True)
+set(GLEW_INCLUDE_DIR ${GLEW_INC})
+set(GLEW_LIBRARIES ${GLEW_DIR}/build/lib)
 find_package(GLEW REQUIRED)
 
 #set(SDLPG_BUILD_TESTS ON CACHE BOOL "Whether tests should be built")
