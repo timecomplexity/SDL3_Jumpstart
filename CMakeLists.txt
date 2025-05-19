@@ -29,6 +29,14 @@ set(SDLPG_UTILS_INC         "${SDLPG_CORE_DIR}/Utilities")
 set(SDLPG_RENDER_INC        "${SDLPG_RENDER_DIR}")
 set(SDLPG_APPLICATION_INC   "${SDLPG_APPLICATION_DIR}")
 
+# Vendor directories and includes
+set(GLEW_DIR    "${SDLPG_VENDOR_DIR}/glew")
+set(GLEW_INC    "${GLEW_DIR}/include")
+set(GLM_DIR     "${SDLPG_VENDOR_DIR}/glm")
+set(GLM_INC     "${GLM_DIR}")
+set(SPDLOG_DIR  "${SDLPG_VENDOR_DIR}/glm")
+set(SPDLOG_INC  "${SPDLOG_DIR}")
+
 # Set CMake output locations to keep things clean
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${SDLPG_BUILD_DIR}/lib")
@@ -84,6 +92,13 @@ if(NOT Vulkan_FOUND)
 endif()
 
 find_package(SDL3 REQUIRED)
+
+# Prefer GLVND to get rid of warnings
+set(OpenGL_GL_PREFERENCE GLVND)
+find_package(OpenGL REQUIRED)
+set(GLEW_USE_STATIC_LIBS True)
+set(GLEW_VERBOSE True)
+find_package(GLEW REQUIRED)
 
 #set(SDLPG_BUILD_TESTS ON CACHE BOOL "Whether tests should be built")
 #if(SDLPG_BUILD_TESTS)

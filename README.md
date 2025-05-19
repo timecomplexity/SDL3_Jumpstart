@@ -35,7 +35,18 @@ If using Vulkan, set up Vulkan using the installation process described [here](h
 
 ### OpenGL
 
-WIP
+Build GLEW so we can use OpenGL. GLEW will be pulled down in the include/vendor directory. From the vendor directory:
+
+(Note that it's probably best to reference the documentation on the repo for GLEW if these steps don't work.)
+
+If you're on Linux, from the vendor directory:
+```
+cd glew/build
+cmake ./cmake
+make -j4
+```
+
+On Windows, go into the build directory (`include/vendor/glew/build`) and open up the project in visual studio. This should be the `vc15` project. Open the.sln file and compile each project for both Debug and Release x64. These files will appear under the bin directory in the glew project.
 
 No need to install GLM which is included as a submodule.
 
